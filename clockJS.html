@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Clock JS</title>
+    </head>
+    <body>
+        <div class="title">
+            Cool JS Date
+        </div>
+        <div class="clock">
+            <div class="clock-face">
+                <div class="hand hour-hand"></div>
+                <div class="hand min-hand"></div>
+                <div class="hand second-hand"></div>
+            </div>
+        </div>
+
+        <style>
+            html {
+                /* background: rgb(0, 66, 39) url(https://picsum.photos/5760/3840?image=1067); */
+                background-size: cover;
+                font-family: 'helvetica neue';
+                text-align: center;
+                font-size: 10px;
+            }
+            .title {
+                margin: 30px;
+                font-size: 400%;
+            }
+
+            body{
+                font-size: 2rem;
+                display: flex;
+                flex: 1;
+                min-height: 100vh;
+                overflow: hidden;
+                align-items: center;
+            }
+
+            .clock {
+                width: 30rem;
+                height: 30rem;
+                border: 20px solid #524036;
+                border-radius: 50%;
+                margin: 50px auto;
+                position: relative;
+                padding: 2rem;
+                background: rgba(243, 241, 241, 0.5) url(assets/images/clockface.png);
+                background-size: contain;
+                box-shadow: 
+                    0 0 0px 4px rgba(0, 0, 0, 0.1),
+                    inset 0 0 0 3px #fdeddd,
+                    inset 0 0 10px black,
+                    0 0 10px rgba(0, 0, 0, 0.2)
+            }
+            .clock-face {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                transform: translate(-3px);
+            }
+            .hand {
+                width: 50%;
+                height: 6px;
+                background: black;
+                position: absolute;
+                top: 50%;
+                transform-origin: 100%;
+                transition-timing-function: cubic-bezier(0, 0.61, 0.49, 1.34);
+            }
+            .hour-hand {
+                width: 35%;
+                left: 15%;
+                /* transform-origin: 95% */
+            }
+            .second-hand {
+                background: rgb(65, 2, 2);
+                /* transform-origin: 95% */
+            }
+            .min-hand {
+                /* transform-origin: 95% */
+
+            }
+        </style>
+        <script>
+            const secondHand = document.querySelector('.second-hand');
+            const minsHand = document.querySelector('.min-hand');
+            const hourHand = document.querySelector('.hour-hand');
+            function setDate() {
+                const now = new Date();
+
+                const seconds = now.getSeconds();
+                const secondDegrees = ((seconds / 60) * 360) + 90;
+                secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+
+                
+
+                const mins = now.getMinutes();
+                const minsDegrees = ((mins / 60) * 360) + 90;
+                minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+                const hour = now.getHours();
+                const hourDegrees = ((hour / 12) * 360) + 90 + ((mins / 60) * 30);
+                hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+                
+                if(hour > 6 && hour < 12){
+                    document.body.style.background = "url('https://picsum.photos/5760/3840?image=1067')";
+                    document.body.style.backgroundSize = `cover`;
+                } else if(hour >= 12 && hour < 18){
+                    document.body.style.background = "url(https://picsum.photos/5472/3648?image=1055)";
+                    document.body.style.backgroundSize = `cover`;
+                } else {
+                    document.body.style.background = "url(https://picsum.photos/5615/2907?image=974)";
+                    document.body.style.backgroundSize = `cover`;
+                }
+
+
+            }
+
+            setInterval(setDate, 1000);
+        </script>
+    </body>
+</html>
